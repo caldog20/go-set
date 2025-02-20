@@ -1,12 +1,13 @@
 # go-set
 A set type to use in my Go projects. The set is not threadsafe so synchronization is requred if reading/writing to the set from multiple goroutines.
+When storing pointers in the set, the set compares the memory address the pointer points to, it does not do a deep comparison of the pointee values.
 
 Usage:
 ```go
 // Create a new empty set of type `string`
 s1 := set.New[string]()
 
-// Insert a single item to the set:
+// Insert a single item to the set (the type is inferred from the argument):
 s1.Insert("hello")
 
 // Insert multiple items to a set:
@@ -47,7 +48,7 @@ s1.Range(func (s string) bool {
 })
 
 // Get an iter.Seq[T] of the items in the set:
-iter := s.Iter()
+iter := s.IterSeq()
 
 // Get the current size (cardinality) of the set:
 s1.Size()
